@@ -11,12 +11,12 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/atom/node-pathwatcher.git"
+    "url": "https://github.com/leipert/node-pathwatcher.git"
   },
   "bugs": {
-    "url": "https://github.com/atom/node-pathwatcher/issues"
+    "url": "https://github.com/leipert/node-pathwatcher/issues"
   },
-  "homepage": "http://atom.github.io/node-pathwatcher",
+  "homepage": "https://github.com/leipert/node-pathwatcher",
   "scripts": {
     "prepublish": "grunt prepublish",
     "test": "grunt test"
@@ -42,7 +42,6 @@
     "iconv-lite": "~0.4.4",
     "nan": "https://atom.io/download/atom-shell/nan-1.6.1.tgz",
     "q": "^1.1.2",
-    "runas": "^2.0.0",
     "underscore-plus": "~1.x"
   }
 }

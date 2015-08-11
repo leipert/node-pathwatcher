@@ -1,3 +1,7 @@
+
+unsafe = ''
+unsafe = '--unsafe-perm' if process.env.DOCKER or process.env.WERCKER_ROOT
+
 module.exports = (grunt) ->
   grunt.initConfig
     pkg: grunt.file.readJSON('package.json')
@@ -40,7 +44,7 @@ module.exports = (grunt) ->
 
     shell:
       rebuild:
-        command: 'npm build .'
+        command: "npm build . #{unsafe}"
         options:
           stdout: true
           stderr: true

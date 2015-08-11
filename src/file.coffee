@@ -7,7 +7,6 @@ fs = require 'fs-plus'
 Grim = require 'grim'
 
 Q = require 'q'
-runas = null # Defer until used
 iconv = null # Defer until used
 
 Directory = null
@@ -297,7 +296,7 @@ class File
   # Returns undefined.
   writeSync: (text) ->
     previouslyExisted = @existsSync()
-    @writeFileWithPrivilegeEscalationSync(@getPath(), text)
+    @writeFileSync(@getPath(), text)
     @cachedContents = text
     @subscribeToNativeChangeEvents() if not previouslyExisted and @hasSubscriptions()
     undefined
@@ -309,23 +308,6 @@ class File
     else
       iconv ?= require 'iconv-lite'
       Q.nfcall(fs.writeFile, filePath, iconv.encode(contents, encoding))
-
-  # Writes the text to specified path.
-  #
-  # Privilege escalation would be asked when current user doesn't have
-  # permission to the path.
-  writeFileWithPrivilegeEscalationSync: (filePath, text) ->
-    try
-      @writeFileSync(filePath, text)
-    catch error
-      if error.code is 'EACCES' and process.platform is 'darwin'
-        runas ?= require 'runas'
-        # Use dd to read from stdin and write to filePath, same thing could be
-        # done with tee but it would also copy the file to stdout.
-        unless runas('/bin/dd', ["of=#{filePath}"], stdin: text, admin: true) is 0
-          throw error
-      else
-        throw error
 
   ###
   Section: Private

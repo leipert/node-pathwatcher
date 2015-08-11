@@ -1,0 +1,12 @@
+box: node:0.10
+build:
+  steps:
+    - script:
+      name: Global dependencies
+      code: npm install -g node-gyp
+    - script:
+      name: Global dependencies
+      code: npm install --unsafe-perm
+    - script:
+      name: Global dependencies
+      code: npm test
