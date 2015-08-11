@@ -78,7 +78,7 @@ describe "Directory", ->
       tempDir = temp.mkdirSync('node-pathwatcher-directory')
       callback = jasmine.createSpy('promiseCallback')
 
-    it 'creates directory if directory does not exist', ->
+    it 'creates directory if directory does not exist #linux or #darwin', ->
       directoryName = path.join(tempDir, 'subdir')
       expect(fs.existsSync(directoryName)).toBe false
       nonExistentDirectory = new Directory(directoryName)
@@ -93,6 +93,19 @@ describe "Directory", ->
         rawMode = fs.statSync(directoryName).mode
         mode = rawMode & 0o07777
         expect(mode.toString(8)).toBe (0o0700).toString(8)
+
+    it 'creates directory if directory does not exist #win32', ->
+      directoryName = path.join(tempDir, 'subdir')
+      expect(fs.existsSync(directoryName)).toBe false
+      nonExistentDirectory = new Directory(directoryName)
+
+      waitsForPromise ->
+        nonExistentDirectory.create(0o0700).then(callback)
+
+      runs ->
+        expect(callback.argsForCall[0][0]).toBe true
+        expect(fs.existsSync(directoryName)).toBe true
+        expect(fs.isDirectorySync(directoryName)).toBe true
 
     it 'leaves existing directory alone if it exists', ->
       directoryName = path.join(tempDir, 'subdir')
