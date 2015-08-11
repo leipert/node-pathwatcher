@@ -97,7 +97,7 @@ describe 'File', ->
         expect(fs.existsSync(parentName)).toBe true
         expect(fs.isDirectorySync(parentName)).toBe true
 
-  describe "when the file has not been read", ->
+  describe "when the file has not been read #notwercker", ->
     describe "when the contents of the file change", ->
       it "notifies ::onDidChange observers", ->
         file.onDidChange changeHandler = jasmine.createSpy('changeHandler')

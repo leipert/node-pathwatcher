@@ -213,6 +213,15 @@ describe "Directory", ->
             expect(entry.symlink).toBeFalsy()
 
   describe ".relativize(path)", ->
+
+    describe "on #notwerckerUnix", ->
+      it "returns a relative path based on the directory's symlinked source path", ->
+        symlinkPath = path.join(__dirname, 'fixtures', 'symlink-to-dir')
+        symlinkDirectory = new Directory(symlinkPath)
+        realFilePath = require.resolve('./fixtures/dir/a')
+        expect(symlinkDirectory.relativize(symlinkPath)).toBe ''
+        expect(symlinkDirectory.relativize(realFilePath)).toBe 'a'
+
     describe "on #darwin or #linux", ->
       it "returns a relative path based on the directory's path", ->
         absolutePath = directory.getPath()
@@ -220,13 +229,6 @@ describe "Directory", ->
         expect(directory.relativize(path.join(absolutePath, "b"))).toBe "b"
         expect(directory.relativize(path.join(absolutePath, "b/file.coffee"))).toBe "b/file.coffee"
         expect(directory.relativize(path.join(absolutePath, "file.coffee"))).toBe "file.coffee"
-
-      it "returns a relative path based on the directory's symlinked source path", ->
-        symlinkPath = path.join(__dirname, 'fixtures', 'symlink-to-dir')
-        symlinkDirectory = new Directory(symlinkPath)
-        realFilePath = require.resolve('./fixtures/dir/a')
-        expect(symlinkDirectory.relativize(symlinkPath)).toBe ''
-        expect(symlinkDirectory.relativize(realFilePath)).toBe 'a'
 
       it "returns the full path if the directory's path is not a prefix of the path", ->
         expect(directory.relativize('/not/relative')).toBe '/not/relative'
@@ -312,7 +314,7 @@ describe "Directory", ->
       expect(directory.contains(path.join(directoryPath, "b", "file.coffee"))).toBe true
       expect(directory.contains(path.join(directoryPath, "file.coffee"))).toBe true
 
-    describe "on #darwin or #linux", ->
+    describe "on #notwerckerUnix", ->
       it "returns true if the path is a child of the directory's symlinked source path", ->
         symlinkPath = path.join(__dirname, 'fixtures', 'symlink-to-dir')
         symlinkDirectory = new Directory(symlinkPath)

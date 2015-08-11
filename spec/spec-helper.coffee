@@ -1,4 +1,9 @@
-jasmine.getEnv().setIncludedTags([process.platform])
+tags = [process.platform]
+isUnix = (process.platform is 'linux' or process.platform is 'darwin')
+tags.push('notwercker') unless process.env.WERCKER_ROOT
+tags.push('notwerckerUnix')  if not process.env.WERCKER_ROOT and isUnix
+
+jasmine.getEnv().setIncludedTags(tags)
 
 global.waitsForPromise = (args...) ->
   if args.length > 1

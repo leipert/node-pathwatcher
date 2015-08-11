@@ -5,8 +5,8 @@ build:
       name: Global dependencies
       code: npm install -g node-gyp
     - script:
-      name: Global dependencies
+      name: Local dependencies
       code: npm install --unsafe-perm
     - script:
-      name: Global dependencies
+      name: tests
       code: npm test

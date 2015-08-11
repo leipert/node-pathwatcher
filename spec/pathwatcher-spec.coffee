@@ -35,7 +35,7 @@ describe 'PathWatcher', ->
       pathWatcher.closeAllWatchers()
       expect(pathWatcher.getWatchedPaths()).toEqual []
 
-  describe 'when a watched path is changed', ->
+  describe 'when a watched path is changed #notwercker', ->
     it 'fires the callback with the event type and empty path', ->
       eventType = null
       eventPath = null
@@ -104,7 +104,7 @@ describe 'PathWatcher', ->
         done()
       fs.renameSync(tempFile, newName)
 
-  describe 'when en exception is thrown in the closed watcher\'s callback', ->
+  describe 'when en exception is thrown in the closed watcher\'s callback #notwercker', ->
     it 'does not crash', (done) ->
       watcher = pathWatcher.watch tempFile, (type, path) ->
         watcher.close()
@@ -128,7 +128,7 @@ describe 'PathWatcher', ->
       expect(watcher).toBe null  # ensure it threw
 
   describe 'when watching multiple files under the same directory', ->
-    it 'fires the callbacks when both of the files are modifiled', ->
+    it 'fires the callbacks when both of the files are modifiled #notwercker', ->
       called = 0
       tempFile2 = path.join(tempDir, 'file2')
       fs.writeFileSync(tempFile2, '')
