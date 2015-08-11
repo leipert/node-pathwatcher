@@ -2,7 +2,7 @@
   "main": "./lib/main.js",
   "name": "pathwatcher-without-runas",
   "description": "Watch files and directories for changes, without runas",
-  "version": "4.4.5",
+  "version": "4.5.0",
   "licenses": [
     {
       "type": "MIT",
