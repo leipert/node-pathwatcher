@@ -1,8 +1,8 @@
 {
   "main": "./lib/main.js",
-  "name": "pathwatcher",
-  "description": "Watch files and directories for changes",
-  "version": "4.4.3",
+  "name": "pathwatcher-without-runas",
+  "description": "Watch files and directories for changes, without runas",
+  "version": "4.4.5",
   "licenses": [
     {
       "type": "MIT",
