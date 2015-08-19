@@ -15,9 +15,9 @@ test_script:
   - node --version
   - npm --version
   # run tests
-  - set GYP_MSVS_VERSION=2010
-  - npm install --unsafe-perm
-  - npm test
+  # - set GYP_MSVS_VERSION=2010
+  # - npm install --unsafe-perm
+  # - npm test
   - rm -rf node_modules
   - set GYP_MSVS_VERSION=2012
   - npm install --unsafe-perm
