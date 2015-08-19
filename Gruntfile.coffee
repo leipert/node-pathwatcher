@@ -1,6 +1,10 @@
 
 unsafe = ''
 unsafe = '--unsafe-perm' if process.env.DOCKER or process.env.WERCKER_ROOT
+msvs = ''
+msvs = "--msvs_version=#{process.env.MSVS}" if process.env.MSVS
+
+console.log(process.env.MSVS);
 
 module.exports = (grunt) ->
   grunt.initConfig
@@ -44,7 +48,7 @@ module.exports = (grunt) ->
 
     shell:
       rebuild:
-        command: "npm build . #{unsafe}"
+        command: "npm build . #{unsafe} #{msvs}"
         options:
           stdout: true
           stderr: true
