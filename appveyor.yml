@@ -1,22 +1,18 @@
-# Test against this version of Node.js
+version: 1.0.{build}
+os: Windows Server 2012 R2
 environment:
-  nodejs_version: "0.10"
-
-# Install scripts. (runs after repo cloning)
+  WERCKER_ROOT: true
+  nodejs_version: 0.10
+  matrix:
+  - GYP_MSVS_VERSION: 2012
+  - GYP_MSVS_VERSION: 2013
 install:
-  # Get the latest stable version of Node.js or io.js
-  - ps: Install-Product node $env:nodejs_version
-  # install modules
-  - npm install -g node-gyp
-  - npm install --unsafe-perm
-
-# Post-install test scripts.
-test_script:
-  # Output useful info for debugging.
-  - node --version
-  - npm --version
-  # run tests
-  - npm test
-
-# Don't actually build.
+- ps: Install-Product node $env:nodejs_version
+- npm install -g node-gyp
 build: off
+test_script:
+- npm install --unsafe-perm
+- node --version
+- npm --version
+- npm test
+deploy: off
